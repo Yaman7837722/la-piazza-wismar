@@ -1,0 +1,71 @@
+.story { position: relative; isolation: isolate; overflow: clip; background: #f3ebdd; color: #211a17; padding: clamp(100px, 10vw, 155px) 0 clamp(110px, 10vw, 160px); }
+.story__paper, .story__artwork { position: absolute; inset: 0; pointer-events: none; }
+.story__paper { z-index: -2; background: radial-gradient(ellipse at 12% 16%, rgba(255,251,242,.72), transparent 44%), radial-gradient(ellipse at 89% 86%, rgba(203,174,133,.12), transparent 45%), url('/textures/grain.svg'); background-size: auto, auto, 170px 170px; opacity: .32; mix-blend-mode: multiply; }
+.story__artwork { z-index: -1; inset: 5% -5% -4%; background: url('/decorative/architecture/intro-architecture-optimized.webp') center bottom / cover no-repeat; opacity: .2; mix-blend-mode: multiply; -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 42%, transparent 55%, #000 100%); mask-image: linear-gradient(90deg, #000 0%, transparent 42%, transparent 55%, #000 100%); }
+.story__container { position: relative; width: min(calc(100% - 112px), 1380px); margin: 0 auto; display: grid; grid-template-columns: 43% 57%; align-items: center; min-height: 600px; }
+.story__content { position: relative; z-index: 6; padding: 24px 0 46px; }
+.story__script { width: fit-content; margin: -.25em 0 calc(-.65em) -.32em; padding: .25em .4em .25em .32em; font: 400 clamp(58px, 5.5vw, 79px)/1.18 var(--font-handwritten), cursive; color: #641f26; white-space: nowrap; transform: rotate(-3deg); transform-origin: left center; overflow: visible; }
+.story__heading { position: relative; margin: 0; font: 500 clamp(55px, 5.6vw, 82px)/.91 var(--font-editorial), serif; letter-spacing: -.055em; color: #211a17; }
+.story__heading-mask { display: block; overflow: hidden; padding: .06em 0 .09em; }
+.story__heading-mask > span { display: block; width: max-content; }
+.story__tricolore { display: flex; gap: 4px; margin-top: 26px; }
+.story__tricolore i { display: block; width: 18px; height: 2px; background: #748064; }
+.story__tricolore i:nth-child(2) { background: #fff9ee; }
+.story__tricolore i:nth-child(3) { background: #9c5250; }
+.story__copy { max-width: 490px; margin: 34px 0 0; color: #5a5049; font: 400 clamp(15px, 1.22vw, 17px)/1.85 var(--font-sans), sans-serif; letter-spacing: -.012em; }
+.story__button { display: inline-flex; align-items: center; justify-content: space-between; gap: 33px; min-width: 190px; min-height: 54px; margin-top: 36px; padding: 0 20px; border: 1px solid #9b8a78; border-radius: 0; background: rgba(255,249,237,.25); color: #302722; font: 600 11px var(--font-sans), sans-serif; letter-spacing: .035em; cursor: default; transition: background .3s, border-color .3s, color .3s, box-shadow .3s; }
+.story__button svg { transition: transform .3s; }
+.story__button:hover { background: #641f26; border-color: #641f26; color: #f3ebdd; box-shadow: 0 9px 23px rgba(100,31,38,.14); }
+.story__button:hover svg { transform: translateX(5px); }
+.story__photos { position: relative; z-index: 4; height: 600px; }
+.story__main-depth, .story__front-depth { position: absolute; }
+.story__main-depth { width: 78%; top: 2%; left: 4%; z-index: 1; }
+.story__front-depth { width: 45%; top: 51%; right: 1%; z-index: 2; }
+.story__print { margin: 0; background: #f9f5e9; box-shadow: 0 24px 48px rgba(50,36,25,.2), 0 5px 14px rgba(50,36,25,.14), inset 0 0 0 1px rgba(88,66,42,.1); }
+.story__print--main { padding: 11px 11px 0; transform: rotate(-2deg); }
+.story__print--front { padding: 9px 9px 15px; transform: rotate(3.5deg); box-shadow: 0 27px 45px rgba(42,29,22,.26), 0 5px 12px rgba(42,29,22,.15); }
+.story__image { position: relative; overflow: hidden; }
+.story__image img { object-fit: cover; }
+.story__image--main img { object-position: 55% center; }
+.story__image--front img { object-position: center 58%; }
+.story__image--main { aspect-ratio: 1.43; }
+.story__image--front { aspect-ratio: .94; }
+.story__print figcaption { height: 66px; display: flex; align-items: center; justify-content: flex-start; padding: 5px 10px 0 5%; white-space: nowrap; color: #43392f; font: 400 clamp(28px, 2.6vw, 41px)/1 var(--font-handwritten), cursive; }
+@media (max-width: 1100px) {
+  .story__container { width: calc(100% - 72px); grid-template-columns: 45% 55%; min-height: 530px; }
+  .story__photos { height: 530px; }
+  .story__heading { font-size: clamp(49px, 5.4vw, 65px); }
+  .story__desktop-break { display: none; }
+}
+@media (max-width: 760px) {
+  .story { padding: 92px 0 100px; }
+  .story__container { width: calc(100% - 48px); display: block; min-height: 0; }
+  .story__content { padding: 0; }
+  .story__script { font-size: clamp(55px, 10vw, 72px); }
+  .story__heading { font-size: clamp(57px, 10.5vw, 76px); }
+  .story__copy { max-width: 580px; margin-top: 28px; }
+  .story__button { margin-top: 30px; }
+  .story__photos { height: min(98vw, 540px); margin-top: 55px; }
+  .story__main-depth { width: 76%; left: 3%; top: 1%; }
+  .story__front-depth { width: 46%; right: 1%; top: 50%; }
+  .story__artwork { inset: 0; opacity: .16; background: none; -webkit-mask-image: none; mask-image: none; }
+  .story__artwork::before, .story__artwork::after { content: ""; position: absolute; width: 84vw; height: 48%; background: url('/decorative/architecture/intro-architecture-optimized.webp') center / auto 100% no-repeat; }
+  .story__artwork::before { left: -38vw; top: 13%; background-position: left center; }
+  .story__artwork::after { right: -37vw; top: 0; background-position: right center; }
+}
+@media (max-width: 460px) {
+  .story { padding: 79px 0 89px; }
+  .story__container { width: calc(100% - 42px); }
+  .story__script { font-size: 54px; }
+  .story__heading { font-size: clamp(38px, 11vw, 51px); }
+  .story__copy { font-size: 15px; line-height: 1.75; }
+  .story__photos { height: 90vw; margin-top: 48px; }
+  .story__main-depth { width: 79%; left: 0; }
+  .story__front-depth { width: 49%; right: 0; top: 50%; }
+  .story__print--main { padding: 7px 7px 0; }
+  .story__print--front { padding: 6px 6px 9px; }
+  .story__print figcaption { height: 45px; font-size: clamp(21px, 5.8vw, 28px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story__button, .story__button svg { transition: none; }
+}

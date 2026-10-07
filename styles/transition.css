@@ -1,0 +1,8 @@
+.hero-story-transition { position: relative; isolation: isolate; }
+.hero-story-transition .first-viewport { position: absolute; z-index: 2; top: 0; left: 0; width: 100%; pointer-events: none; }
+.hero-story-transition .hero, .hero-story-transition .navbar { pointer-events: auto; }
+.hero-story-transition .story { position: relative; z-index: 1; min-height: 100svh; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-story-transition .first-viewport { position: relative; }
+  .hero-story-transition .story { position: relative; }
+}
