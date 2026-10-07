@@ -18,16 +18,22 @@ export function HeroStoryTransition() {
     const html = document.documentElement;
     const previousBehavior = html.style.scrollBehavior;
     const previousOverflow = html.style.overflow;
-    window.history.scrollRestoration = "manual";
-    html.style.scrollBehavior = "auto";
-    html.style.overflow = "hidden";
-    if (window.location.hash) {
+    const desktop = window.matchMedia("(min-width: 981px)");
+    const syncScrollMode = () => {
+      window.history.scrollRestoration = desktop.matches ? "manual" : previousRestoration;
+      html.style.scrollBehavior = desktop.matches ? "auto" : previousBehavior;
+      html.style.overflow = desktop.matches && root.current?.querySelector("[data-intro]") ? "hidden" : "";
+    };
+    syncScrollMode();
+    desktop.addEventListener("change", syncScrollMode);
+    if (desktop.matches && window.location.hash) {
       window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search);
     }
-    const resetToTop = () => window.scrollTo(0, 0);
+    const resetToTop = () => { if (desktop.matches) window.scrollTo(0, 0); };
     resetToTop();
     window.addEventListener("pageshow", resetToTop);
     return () => {
+      desktop.removeEventListener("change", syncScrollMode);
       window.removeEventListener("pageshow", resetToTop);
       window.history.scrollRestoration = previousRestoration;
       html.style.scrollBehavior = previousBehavior;
@@ -44,7 +50,7 @@ export function HeroStoryTransition() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const media = gsap.matchMedia();
-    const createTransition = (desktop: boolean) => {
+    const createDesktopTransition = () => {
       const context = gsap.context(() => {
         const hero = wrapper.querySelector<HTMLElement>(".hero");
         const story = wrapper.querySelector<HTMLElement>(".story");
@@ -53,7 +59,6 @@ export function HeroStoryTransition() {
         const artwork = wrapper.querySelector<HTMLElement>("[data-story-artwork]");
         if (!hero || !story || !content || !particles || !artwork) return;
         const artworkOpacity = Number(window.getComputedStyle(artwork).opacity);
-        const blur = desktop ? 5 : 2;
         story.inert = true;
 
         const master = gsap.timeline({
@@ -61,11 +66,11 @@ export function HeroStoryTransition() {
           scrollTrigger: {
             trigger: wrapper,
             start: "top top",
-            end: () => `+=${Math.round(window.innerHeight * (desktop ? 1.45 : 1.15))}`,
+            end: () => `+=${Math.round(window.innerHeight * 1.45)}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
-            scrub: desktop ? 1 : 0.45,
+            scrub: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               hero.inert = self.progress > 0.96;
@@ -75,11 +80,11 @@ export function HeroStoryTransition() {
         });
 
         master
-          .fromTo(hero, { scale: 1, opacity: 1, filter: "blur(0px)" }, { scale: desktop ? 1.035 : 1.02, opacity: 0.65, filter: `blur(${blur}px)`, duration: 30 }, 0)
+          .fromTo(hero, { scale: 1, opacity: 1, filter: "blur(0px)" }, { scale: 1.035, opacity: 0.65, filter: "blur(5px)", duration: 30 }, 0)
           .to(hero, { opacity: 0, duration: 38 }, 30)
-          .fromTo(content, { y: 0, opacity: 1 }, { y: desktop ? -25 : -18, opacity: 0, duration: 43 }, 0)
+          .fromTo(content, { y: 0, opacity: 1 }, { y: -25, opacity: 0, duration: 43 }, 0)
           .fromTo(particles, { opacity: 1 }, { opacity: 0, duration: 55 }, 0)
-          .fromTo(story, { opacity: 0, scale: desktop ? 1.015 : 1, y: desktop ? 0 : 20 }, { opacity: 1, scale: 1, y: 0, duration: 55 }, 20)
+          .fromTo(story, { opacity: 0, scale: 1.015, y: 0 }, { opacity: 1, scale: 1, y: 0, duration: 55 }, 20)
           .fromTo(artwork, { opacity: 0, filter: "blur(4px)" }, { opacity: artworkOpacity, filter: "blur(0px)", duration: 20 }, 45)
           .fromTo("[data-story-script]", { opacity: 0, filter: "blur(3px)", clipPath: "inset(0 100% 0 0)" }, { opacity: 1, filter: "blur(0px)", clipPath: "inset(0 0% 0 0)", duration: 20 }, 50)
           .fromTo("[data-story-heading-line]", { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 20, stagger: 6 }, 56)
@@ -99,8 +104,7 @@ export function HeroStoryTransition() {
       return () => context.revert();
     };
 
-    media.add("(min-width: 761px) and (prefers-reduced-motion: no-preference)", () => createTransition(true));
-    media.add("(max-width: 760px) and (prefers-reduced-motion: no-preference)", () => createTransition(false));
+    media.add("(min-width: 981px) and (prefers-reduced-motion: no-preference)", createDesktopTransition);
     return () => {
       media.revert();
       html.style.overflow = "";

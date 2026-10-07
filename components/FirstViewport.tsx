@@ -5,8 +5,9 @@ import gsap from "gsap";
 import { Intro } from "@/components/intro/Intro";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/hero/Hero";
+import { MobileScrollStory } from "@/components/MobileScrollStory";
 
-export function FirstViewport({ onReady }: { onReady?: () => void }) {
+export function FirstViewport({ onReady, mobile = false }: { onReady?: () => void; mobile?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const [introVisible, setIntroVisible] = useState(true);
 
@@ -29,9 +30,9 @@ export function FirstViewport({ onReady }: { onReady?: () => void }) {
       const backgroundDepth = node.querySelector<HTMLElement>("[data-hero-background-depth]");
       const particleLayer = node.querySelector<HTMLElement>("[data-particle-depth]");
       const hero = node.querySelector<HTMLElement>(".hero");
-      const cinematicDrift = background && gsap.to(background, {
+      const cinematicDrift = background && window.matchMedia("(min-width: 981px)").matches ? gsap.to(background, {
         scale: 1.045, x: 8, y: -7, duration: 22, ease: "sine.inOut", yoyo: true, repeat: -1, paused: true,
-      });
+      }) : null;
       const brand = node.querySelector<HTMLElement>("[data-intro-brand]");
       const subtitle = node.querySelector<HTMLElement>("[data-intro-subtitle]");
       if (!brand || !subtitle) return;
@@ -40,7 +41,7 @@ export function FirstViewport({ onReady }: { onReady?: () => void }) {
       const mobile = window.matchMedia("(max-width: 640px)").matches;
       const artworkBlur = mobile ? 8 : 14;
       const heroBlur = mobile ? 5 : 8;
-      const timeline = gsap.timeline({ onComplete: () => onReady?.() });
+      const timeline = gsap.timeline({ onComplete: () => { setIntroVisible(false); onReady?.(); } });
       timeline
         .set("[data-intro-artwork]", { willChange: "opacity, transform, filter" }, 0)
         .fromTo("[data-intro-artwork]", { opacity: 0, filter: "blur(6px)", scale: 1.015 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 1.2, ease: "power2.out" }, 0)
@@ -58,13 +59,13 @@ export function FirstViewport({ onReady }: { onReady?: () => void }) {
         .to("[data-intro-brand]", { opacity: 0, filter: "blur(7px)", y: -8, duration: 0.65, ease: "power2.in" }, 4.45)
         .set("[data-hero-background]", { clearProps: "willChange" }, 5.3)
         .call(() => cinematicDrift?.play(), [], 5.31)
-        .set("[data-intro]", { autoAlpha: 0, onComplete: () => setIntroVisible(false) }, 5.3)
+        .set("[data-intro]", { autoAlpha: 0 }, 5.3)
+        .call(() => setIntroVisible(false), [], 5.31)
         .fromTo("[data-navbar]", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.65, ease: "power2.out" }, 5.36)
         .fromTo("[data-hero-script]", { opacity: 0, filter: "blur(4px)", clipPath: "inset(0 100% 0 0)" }, { opacity: 1, filter: "blur(0px)", clipPath: "inset(0 0% 0 0)", duration: 1.1, ease: "power2.inOut", onComplete() { gsap.set(this.targets(), { clearProps: "clipPath" }); } }, 5.52)
         .fromTo("[data-hero-title]", { opacity: 0.3, clipPath: "inset(100% 0 0 0)", filter: "blur(4px)", y: 35 }, { opacity: 1, clipPath: "inset(0% 0 0 0)", filter: "blur(0px)", y: 0, duration: 0.9, ease: "power3.out" }, 5.7)
         .fromTo("[data-hero-subtitle]", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 6.18)
-        .fromTo("[data-hero-accent-segment]", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.26, stagger: 0.08, ease: "power2.out" }, 6.55)
-        .fromTo("[data-hero-cta]", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.58, stagger: 0.13, ease: "power2.out" }, 6.78);
+        .fromTo("[data-hero-accent-segment]", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.26, stagger: 0.08, ease: "power2.out" }, 6.55);
 
       if (hero && backgroundDepth && particleLayer && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         const moveBackgroundX = gsap.quickTo(backgroundDepth, "x", { duration: 1.3, ease: "power2.out" });
@@ -95,5 +96,6 @@ export function FirstViewport({ onReady }: { onReady?: () => void }) {
     return () => ctx.revert();
   }, [onReady]);
 
+  if (mobile) return <main ref={root} className="mobile-landing"><Intro visible={introVisible} /><MobileScrollStory><Navbar /><Hero mobile /></MobileScrollStory></main>;
   return <div ref={root} className="first-viewport"><div inert={introVisible}><Navbar /><Hero /></div><Intro visible={introVisible} /></div>;
 }

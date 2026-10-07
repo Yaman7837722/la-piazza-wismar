@@ -54,14 +54,14 @@
   .story__artwork::after { right: -37vw; top: 0; background-position: right center; }
 }
 @media (max-width: 460px) {
-  .story { padding: 79px 0 89px; }
+  .story { padding: 100px 0 120px; }
   .story__container { width: calc(100% - 42px); }
   .story__script { font-size: 54px; }
   .story__heading { font-size: clamp(38px, 11vw, 51px); }
   .story__copy { font-size: 15px; line-height: 1.75; }
-  .story__photos { height: 90vw; margin-top: 48px; }
+  .story__photos { height: 104vw; margin-top: 78px; }
   .story__main-depth { width: 79%; left: 0; }
-  .story__front-depth { width: 49%; right: 0; top: 50%; }
+  .story__front-depth { width: 47%; right: 3%; top: 50%; }
   .story__print--main { padding: 7px 7px 0; }
   .story__print--front { padding: 6px 6px 9px; }
   .story__print figcaption { height: 45px; font-size: clamp(21px, 5.8vw, 28px); }
