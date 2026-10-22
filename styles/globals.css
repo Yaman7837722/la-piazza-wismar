@@ -11,7 +11,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { margin: 0; background: var(--espresso); color: var(--cream-light); font-family: var(--font-sans), sans-serif; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
@@ -22,6 +22,7 @@ button { font: inherit; }
 .first-viewport { min-height: 100svh; overflow: clip; }
 .mobile-landing { position: relative; min-height: 100%; height: auto; overflow: visible; background: var(--cream); }
 .intro { position: fixed; z-index: 100; inset: 0; min-height: 100svh; display: grid; place-items: center; overflow: hidden; color: #211a17; pointer-events: none; }
+html[data-intro-complete="true"] .intro { display: none !important; }
 .intro__base { position: absolute; inset: 0; background: #f3ebdd; }
 .intro__artwork { position: absolute; inset: 0; background-image: image-set(url('/decorative/architecture/intro-architecture-optimized.webp') type('image/webp'), url('/decorative/architecture/intro-architecture.png') type('image/png')); background-size: cover; background-position: center; background-repeat: no-repeat; }
 .intro__content { position: relative; z-index: 2; display: flex; align-items: center; gap: clamp(20px, 5vw, 74px); width: min(780px, 85vw); }
@@ -58,14 +59,12 @@ button { font: inherit; }
 .hero { position: relative; isolation: isolate; min-height: 100svh; display: flex; align-items: center; background: #272521; overflow: hidden; }
 .hero__background-depth, .hero__background, .hero__shade, .hero__grain, .hero__ambient { position: absolute; inset: 0; pointer-events: none; }
 .hero__background-depth { z-index: -3; }
-.hero__background { background-image: url('/images/hero/la-piazza-wismar-hero-optimized.webp'); background-position: 50% center; background-size: cover; background-repeat: no-repeat; transform-origin: center; }
-.hero__shade { z-index: -2; background: linear-gradient(90deg, rgba(19,15,15,.84) 0%, rgba(23,17,16,.72) 27%, rgba(23,17,16,.32) 48%, rgba(23,17,16,.04) 68%, transparent 80%), linear-gradient(0deg, rgba(13,14,16,.3), transparent 26%, transparent 78%, rgba(13,14,16,.17)); }
+.hero__background { background-image: url('/images/hero/la-piazza-wismar-hero-pizza.webp'); background-position: 52% center; background-size: cover; background-repeat: no-repeat; transform-origin: center; }
+.hero__shade { z-index: -2; background: linear-gradient(90deg, rgba(19,15,15,.68) 0%, rgba(23,17,16,.55) 28%, rgba(23,17,16,.18) 51%, transparent 73%), linear-gradient(0deg, rgba(13,14,16,.2), transparent 28%, transparent 78%, rgba(13,14,16,.12)); }
 .hero__ambient { z-index: -1; background: radial-gradient(ellipse 38% 48% at 77% 64%, rgba(255,211,106,.35), rgba(231,199,123,.12) 48%, transparent 100%); opacity: .12; animation: hero-light-breathe 10s ease-in-out infinite alternate; }
+.hero--offscreen .hero__particles, .hero--offscreen .hero__ambient, .hero--offscreen .hero__scroll-line, .hero--offscreen .hero__particle, .hero--offscreen .hero__particle i { animation-play-state: paused; }
 @keyframes hero-light-breathe { to { opacity: .2; } }
 .hero__grain { z-index: -1; opacity: .08; background-image: url('/textures/grain.svg'); background-size: 170px 170px; mix-blend-mode: soft-light; }
-.hero__food { position: absolute; z-index: 1; right: 2.5%; bottom: 0; width: clamp(320px, 36vw, 640px); aspect-ratio: 1.18; pointer-events: none; filter: drop-shadow(0 18px 24px rgba(11,8,7,.32)); animation: hero-food-enter .9s 6s both cubic-bezier(.2,.7,.2,1); }
-.hero__food img { object-fit: contain; object-position: right bottom; }
-@keyframes hero-food-enter { from { opacity: 0; transform: translateY(25px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .hero__particles { position: absolute; z-index: 1; inset: -15px; pointer-events: none; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 28%, rgba(0,0,0,.65) 46%, #000 57%); mask-image: linear-gradient(90deg, transparent 28%, rgba(0,0,0,.65) 46%, #000 57%); }
 .hero__particle-depth { position: absolute; inset: 0; }
 .hero__particle { position: absolute; left: var(--particle-x); top: var(--particle-y); width: var(--particle-size); height: var(--particle-size); opacity: var(--particle-opacity); animation: particle-drift var(--particle-duration) linear var(--particle-delay) infinite; }
@@ -102,8 +101,12 @@ button { font: inherit; }
   .intro { pointer-events: auto; }
   .hero { overflow: visible; }
   .hero__background-depth { overflow: clip; }
-  .hero__particles { inset: 0; }
-  .hero__food { right: 1%; bottom: 1%; width: clamp(220px, 38vw, 360px); }
+  .hero__particles { inset: 0; -webkit-mask-image: linear-gradient(90deg, transparent, rgba(0,0,0,.85) 10%, #000 28%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, rgba(0,0,0,.85) 10%, #000 28%, #000 88%, transparent); }
+  .hero__particle { left: var(--mobile-particle-x); top: var(--mobile-particle-y); width: var(--mobile-particle-size); height: var(--mobile-particle-size); opacity: var(--mobile-particle-opacity); animation: mobile-particle-drift var(--mobile-particle-duration) linear var(--mobile-particle-twinkle-delay) infinite; }
+  .hero__particle i, .hero__particle--twinkle i { opacity: .85; filter: none; background: radial-gradient(circle, #ffe9a1 0 38%, #e6ba63 72%, #c39a62 100%); box-shadow: 0 0 4px 1px rgba(255,211,106,.7), 0 0 8px 2px rgba(195,154,98,.32); animation: mobile-particle-twinkle var(--mobile-particle-twinkle-duration) ease-in-out var(--mobile-particle-twinkle-delay) infinite; }
+  .hero__particle--mobile-glint i { box-shadow: 0 0 5px 1px rgba(255,226,154,.9), 0 0 10px 2px rgba(231,199,123,.5); }
+  .hero__background { background-image: url('/images/hero/la-piazza-wismar-hero-pizza-mobile.webp'); background-size: cover; background-position: center center; }
+  .hero__shade { background: linear-gradient(90deg, rgba(19,15,15,.59), rgba(19,15,15,.38) 55%, rgba(19,15,15,.07)), linear-gradient(0deg, rgba(10,11,13,.22), transparent 28%, transparent 76%, rgba(10,11,13,.12)); }
   .navbar { position: absolute; }
   .navbar__inner { height: 78px; display: flex; justify-content: space-between; }
   .navbar__links { display: none; }
@@ -115,22 +118,27 @@ button { font: inherit; }
   .hero__title { font-size: clamp(86px, 11vw, 120px); }
 }
 
+@keyframes mobile-particle-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: calc(var(--mobile-particle-opacity) * .72); }
+  50% { transform: translate3d(var(--mobile-particle-drift-x), var(--mobile-particle-drift-y), 0); opacity: var(--mobile-particle-opacity); }
+}
+
+@keyframes mobile-particle-twinkle {
+  0%, 100% { transform: scale(.85); opacity: .75; }
+  48% { transform: scale(1.15); opacity: 1; }
+}
+
 @media (max-width: 980px) and (min-width: 641px) {
-  .hero__particle:nth-child(n+61) { display: none; }
+  .hero__particle:nth-child(n+45) { display: none; }
 }
 
 @media (max-width: 640px) {
-  .hero__food { right: 0; bottom: 3%; width: min(55vw, 250px); filter: drop-shadow(0 12px 15px rgba(11,8,7,.28)); }
   .navbar__inner { width: calc(100% - 40px); height: 72px; }
   .brand__name { font-size: 30px; }
   .hero { align-items: center; }
-  .hero__background { background-position: 62% center; }
-  .hero__shade { background: linear-gradient(90deg, rgba(19,15,15,.79), rgba(19,15,15,.59) 56%, rgba(19,15,15,.28)), linear-gradient(0deg, rgba(10,11,13,.48), transparent 30%, transparent 74%, rgba(10,11,13,.24)); }
-  .hero__particles { -webkit-mask-image: linear-gradient(90deg, transparent 39%, rgba(0,0,0,.35) 68%, #000); mask-image: linear-gradient(90deg, transparent 39%, rgba(0,0,0,.35) 68%, #000); }
-  .hero__particle:nth-child(n+25) { display: none; }
-  .hero__particle--bokeh i { filter: none; box-shadow: 0 0 8px 3px rgba(255,226,154,.45); }
-  .hero__particle--neon i, .hero__particle--bright i { box-shadow: 0 0 6px 2px rgba(255,226,154,.7); }
-  .hero__content { width: calc(100% - 44px); margin-top: -95px; padding-bottom: 27px; }
+  .hero__shade { background: linear-gradient(90deg, rgba(19,15,15,.6), rgba(19,15,15,.28) 58%, transparent), linear-gradient(0deg, rgba(10,11,13,.26), transparent 30%, transparent 76%, rgba(10,11,13,.12)); }
+  .hero__particle:nth-child(n+37) { display: none; }
+  .hero__content { width: calc(100% - 44px); margin-top: -135px; padding-bottom: 27px; }
   .hero__script { --script-left: 2px; --script-bottom: 0px; font-size: clamp(53px, 13vw, 70px); }
   .hero__title { font-size: clamp(71px, 17vw, 104px); margin-left: -3px; }
   .hero__description { max-width: 350px; margin-top: 20px; font-size: clamp(15px, 4.2vw, 18px); line-height: 1.45; }
@@ -161,7 +169,6 @@ button { font: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__food { animation: none; }
   .hero__particle { animation: none !important; opacity: var(--particle-opacity); }
   .hero__particle i { animation: none !important; }
   .hero__particle:nth-child(n+31) { display: none; }

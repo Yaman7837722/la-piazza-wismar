@@ -1,0 +1,45 @@
+.speisekarte { position: relative; padding: 106px 0 74px; background-color: #f5eee2; background-image: radial-gradient(ellipse at 50% 0%, rgba(255,250,240,.24), transparent 55%), url('/textures/menu-grain.png'); background-size: 100% 1200px, 170px 170px; background-repeat: no-repeat, repeat; color: #211a17; }
+.speisekarte__intro { width: min(calc(100% - 48px), 1000px); margin: 0 auto 60px; text-align: center; }
+.speisekarte__script, .speisekarte__category-script { margin: 0 0 -14px; color: #722832; font: 400 clamp(51px, 6vw, 76px)/1.2 var(--font-handwritten), cursive; transform: rotate(-3deg); }
+.speisekarte__intro h2 { margin: 0; font: 500 clamp(47px, 6vw, 84px)/.96 var(--font-editorial), serif; letter-spacing: -.045em; }
+.speisekarte__tricolore { display: flex; justify-content: center; gap: 4px; margin: 26px 0 22px; }
+.speisekarte__tricolore i { width: 18px; height: 2px; background: #748064; }
+.speisekarte__tricolore i:nth-child(2) { background: #d6c8ae; }
+.speisekarte__tricolore i:nth-child(3) { background: #9c5250; }
+.speisekarte__intro > p:last-child { margin: 0; color: #665a50; font: 400 15px/1.7 var(--font-sans), sans-serif; }
+.speisekarte__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(36px, 6vw, 96px); }
+.speisekarte__catalogue { width: min(calc(100% - 80px), 1160px); margin: 0 auto; }
+.speisekarte__nav, .speisekarte__subnav { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 2.2vw, 34px); overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.speisekarte__nav::-webkit-scrollbar, .speisekarte__subnav::-webkit-scrollbar { display: none; }
+.speisekarte__nav { border-top: 1px solid #cbbca8; border-bottom: 1px solid #cbbca8; }
+.speisekarte__nav button, .speisekarte__subnav button { position: relative; flex: none; min-height: 53px; border: 0; border-radius: 0; padding: 0 1px; background: transparent; color: #6b5e52; font: 600 11px/1.2 var(--font-sans), sans-serif; letter-spacing: .08em; cursor: pointer; white-space: nowrap; transition: color .2s ease; }
+.speisekarte__nav button:hover, .speisekarte__subnav button:hover, .speisekarte__nav button.is-active, .speisekarte__subnav button.is-active { color: #641f26; }
+.speisekarte__nav button.is-active::after, .speisekarte__subnav button.is-active::after { content: ""; position: absolute; height: 2px; left: 0; right: 0; bottom: 0; background: #641f26; }
+.speisekarte__nav button:focus-visible, .speisekarte__subnav button:focus-visible { outline: 2px solid #641f26; outline-offset: -4px; }
+.speisekarte__content { padding-top: 66px; }
+.speisekarte__category-header { text-align: center; margin-bottom: 29px; }
+.speisekarte__category-script { font-size: 43px; margin-bottom: -9px; }
+.speisekarte__category-header h3 { margin: 0; font: 500 clamp(48px, 5vw, 68px)/1 var(--font-editorial), serif; letter-spacing: -.04em; }
+.speisekarte__subnav { gap: clamp(20px, 3vw, 42px); margin-bottom: 43px; }
+.speisekarte__subnav button { min-height: 42px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.speisekarte__category-note { max-width: 650px; margin: 0 auto 36px; text-align: center; color: #6d6055; font: 400 13px/1.7 var(--font-sans), sans-serif; }
+.speisekarte__list { row-gap: 35px; }
+.speisekarte__item { display: grid; grid-template-columns: 29px minmax(0, 1fr); align-items: start; min-width: 0; }
+.speisekarte__item:not(:has(.speisekarte__number)) { grid-template-columns: minmax(0, 1fr); }
+.speisekarte__number { padding-top: 8px; color: #a18e7a; font: 600 10px/1 var(--font-sans), sans-serif; font-variant-numeric: tabular-nums; }
+.speisekarte__item-body { min-width: 0; }
+.speisekarte__item-top { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.speisekarte__item-name { min-width: 0; margin: 0; color: #2a211d; font: 600 clamp(24px, 2.25vw, 30px)/1.05 var(--font-editorial), serif; letter-spacing: -.018em; }
+.speisekarte__markers { margin-left: 2px; color: #876b57; font: 600 9px/1 var(--font-sans), sans-serif; letter-spacing: .02em; vertical-align: super; }
+.speisekarte__leader { flex: 1; min-width: 10px; height: 1px; border-bottom: 1px solid #cdbfac; opacity: .75; }
+.speisekarte__price { flex: none; color: #3b2b26; font: 600 15px/1.2 var(--font-sans), sans-serif; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.speisekarte__size { margin-right: 8px; color: #8a7767; font-size: 11px; font-weight: 500; }
+.speisekarte__description { margin: 7px 0 0; max-width: 420px; color: #75675b; font: 400 12px/1.6 var(--font-sans), sans-serif; }
+.speisekarte__options { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 10px; color: #6c5e52; font: 500 12px/1.5 var(--font-sans), sans-serif; }
+.speisekarte__options > span { display: inline-flex; gap: 10px; white-space: nowrap; }
+.speisekarte__options strong { color: #3b2b26; font-weight: 650; font-variant-numeric: tabular-nums; }
+.speisekarte__item--featured .speisekarte__item-name::before { content: "✦ "; color: #9c5250; font: 400 12px var(--font-sans), sans-serif; vertical-align: middle; }
+.speisekarte__legal { width: min(calc(100% - 48px), 900px); margin: 82px auto 0; border-top: 1px solid #d0c2ae; padding-top: 24px; text-align: center; color: #75675b; font: 400 12px/1.7 var(--font-sans), sans-serif; }
+@media (max-width: 900px) { .speisekarte__nav, .speisekarte__subnav { justify-content: flex-start; } .speisekarte__nav { gap: 26px; } .speisekarte__list { column-gap: 34px; } }
+@media (max-width: 640px) { .speisekarte { padding: 84px 0 60px; } .speisekarte__intro { margin-bottom: 46px; } .speisekarte__intro h2 { font-size: clamp(43px, 11vw, 59px); } .speisekarte__intro > p:last-child { font-size: 13px; } .speisekarte__catalogue { width: calc(100% - 40px); } .speisekarte__list { grid-template-columns: minmax(0, 1fr); row-gap: 27px; } .speisekarte__nav { justify-content: flex-start; gap: 24px; margin-right: -20px; padding-right: 20px; } .speisekarte__content { padding-top: 52px; } .speisekarte__subnav { justify-content: flex-start; margin-bottom: 35px; } .speisekarte__item-name { font-size: 26px; } .speisekarte__description { font-size: 12px; } .speisekarte__legal { margin-top: 60px; } }
+@media (prefers-reduced-motion: reduce) { .speisekarte__nav button, .speisekarte__subnav button { transition: none; } }

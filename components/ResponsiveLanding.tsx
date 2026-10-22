@@ -5,7 +5,9 @@ import { FirstViewport } from "@/components/FirstViewport";
 import { HeroStoryTransition } from "@/components/HeroStoryTransition";
 
 export function ResponsiveLanding() {
-  const [mobile, setMobile] = useState<boolean | null>(null);
+  // Render the normal-flow mobile view on the server so the Hero H1 and Story
+  // are present in crawlable HTML; switch to the desktop scene after hydration.
+  const [mobile, setMobile] = useState(true);
 
   useLayoutEffect(() => {
     const query = window.matchMedia("(max-width: 980px)");
@@ -15,6 +17,5 @@ export function ResponsiveLanding() {
     return () => query.removeEventListener("change", update);
   }, []);
 
-  if (mobile === null) return null;
   return mobile ? <FirstViewport mobile /> : <HeroStoryTransition />;
 }

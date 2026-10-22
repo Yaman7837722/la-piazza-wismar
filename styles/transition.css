@@ -6,18 +6,3 @@
   .hero-story-transition .first-viewport { position: relative; }
   .hero-story-transition .story { position: relative; }
 }
-@media (max-width: 980px) {
-  .mobile-scrollstory { position: relative; height: 200svh; background: #f3ebdd; }
-  .mobile-scrollstory__viewport { position: sticky; z-index: 2; top: 0; height: 100svh; overflow: hidden; background: #f3ebdd; }
-  .mobile-scrollstory__hero, .mobile-scrollstory__entrance { position: absolute; inset: 0; }
-  .mobile-scrollstory__hero { z-index: 1; transform-origin: center; }
-  .mobile-scrollstory__hero #home, .mobile-scrollstory__hero .hero { height: 100%; min-height: 100%; }
-  .mobile-scrollstory__entrance { z-index: 2; overflow: hidden; background: #f3ebdd; color: #211a17; opacity: 0; pointer-events: none; }
-  .mobile-scrollstory__artwork { position: absolute; inset: 0; opacity: .16; background: url('/decorative/architecture/intro-architecture-optimized.webp') center / cover no-repeat; }
-  .mobile-scrollstory__intro { position: relative; width: calc(100% - 48px); margin: 0 auto; padding-top: 92px; }
-  .mobile-scrollstory__continuation { position: relative; z-index: 1; margin-top: -100svh; }
-  .mobile-scrollstory__continuation .story { min-height: 100svh; }
-}
-@media (max-width: 640px) {
-  .mobile-scrollstory__intro { width: calc(100% - 42px); padding-top: 100px; }
-}
