@@ -24,7 +24,7 @@ button { font: inherit; }
 .intro { position: fixed; z-index: 100; inset: 0; min-height: 100svh; display: grid; place-items: center; overflow: hidden; color: #211a17; pointer-events: none; }
 html[data-intro-complete="true"] .intro { display: none !important; }
 .intro__base { position: absolute; inset: 0; background: #f3ebdd; }
-.intro__artwork { position: absolute; inset: 0; background-image: image-set(url('/decorative/architecture/intro-architecture-optimized.webp') type('image/webp'), url('/decorative/architecture/intro-architecture.png') type('image/png')); background-size: cover; background-position: center; background-repeat: no-repeat; }
+.intro__artwork { position: absolute; inset: 0; background-image: url('/decorative/architecture/intro-architecture-optimized.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; }
 .intro__content { position: relative; z-index: 2; display: flex; align-items: center; gap: clamp(20px, 5vw, 74px); width: min(780px, 85vw); }
 .intro__line { height: 1px; flex: 1; background: rgba(148,113,75,.54); }
 .intro__line:first-child { transform-origin: right center; }
@@ -149,7 +149,7 @@ html[data-intro-complete="true"] .intro { display: none !important; }
   .intro__brand { color: #17120f; font-size: clamp(54px, 14vw, 75px); font-weight: 600; letter-spacing: -.06em; }
   .intro__subtitle { color: #4c4038; font-size: 9px; font-weight: 700; letter-spacing: .23em; margin-top: 18px; }
   .intro__artwork { background-image: none; }
-  .intro__artwork::before, .intro__artwork::after { content: ""; position: absolute; top: 0; bottom: 0; width: min(38vw, 190px); background-image: image-set(url('/decorative/architecture/intro-architecture-optimized.webp') type('image/webp'), url('/decorative/architecture/intro-architecture.png') type('image/png')); background-size: auto 100svh; background-repeat: no-repeat; }
+  .intro__artwork::before, .intro__artwork::after { content: ""; position: absolute; top: 0; bottom: 0; width: min(38vw, 190px); background-image: url('/decorative/architecture/intro-architecture-optimized.webp'); background-size: auto 100svh; background-repeat: no-repeat; }
   .intro__artwork::before { left: 0; background-position: left center; -webkit-mask-image: linear-gradient(90deg, #000 43%, transparent 100%); mask-image: linear-gradient(90deg, #000 43%, transparent 100%); }
   .intro__artwork::after { right: 0; background-position: right center; -webkit-mask-image: linear-gradient(270deg, #000 43%, transparent 100%); mask-image: linear-gradient(270deg, #000 43%, transparent 100%); }
   .intro__accent { bottom: 30px; }
